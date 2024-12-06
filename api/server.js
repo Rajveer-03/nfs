@@ -25,7 +25,7 @@ app.get('/cusreview', (req, res) => {
 });
 
 
-app.post('/postappointment', async (req, res) => {
+app.post('api/postappointment', async (req, res) => {
     const {name , email , phonenum , date, time , msg } = req.body
     const user = new User({
         name,
@@ -40,7 +40,7 @@ app.post('/postappointment', async (req, res) => {
 })
 
 
-app.post('/postreview', async (req, res) => {
+app.post('api/postreview', async (req, res) => {
     const {name , email , rating, review} = req.body
     const rev = new Review({
         name,
