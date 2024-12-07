@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         try {
             const rev = new Review({ name, email, rating, review });
             await rev.save();
-            return res.status(200).sendFile(path.join(process.cwd(), 'public', 'formsubmited.html'));
+            return res.status(200).sendFile('../public/formsubmitted.html');
         } catch (error) {
             return res.status(500).json({ error: "Internal Server Error", details: error.message });
         }
