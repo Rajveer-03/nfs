@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Review from './models/reviewModel.js';
 
-mongoose.connect(process.env.MONGODB_ATLAS_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_ATLAS_URL, {  });
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
