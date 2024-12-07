@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import fs from 'fs';
 import path from 'path';
 import User from './models/userModel.js';
 
@@ -17,14 +18,23 @@ export default async function handler(req, res) {
             const user = new User({ name, email, phonenum, date, time, msg });
             await user.save();
 
-            // Serve the formsubmitted.html file
+            // Resolve the file path
             const filePath = path.resolve('public', 'formsubmitted.html');
-            return res.status(200).sendFile(filePath);
+
+            // Read and send the HTML file
+            fs.readFile(filePath, 'utf8', (err, data) => {
+                if (err) {
+                    console.error("File read error:", err);
+                    return res.status(500).json({ error: "Failed to load the confirmation page." });
+                }
+                res.setHeader('Content-Type', 'text/html');
+                res.status(200).send(data);
+            });
         } catch (error) {
             return res.status(500).json({ error: "Internal Server Error", details: error.message });
         }
+    } else {
+        // Handle unsupported HTTP methods
+        return res.status(405).json({ error: "Method Not Allowed" });
     }
-
-    // Handle unsupported HTTP methods
-    return res.status(405).json({ error: "Method Not Allowed" });
 }
