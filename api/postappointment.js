@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         try {
             const user = new User({ name, email, phonenum, date, time, msg });
             await user.save();
-            return res.status(200).json({ message: "Form Submission Successful" });
+            return res.status(200).sendFile(path.join(process.cwd(), 'public', 'formsubmited.html'));
         } catch (error) {
             return res.status(500).json({ error: "Internal Server Error", details: error.message });
         }
