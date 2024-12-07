@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const reviewSchema = new mongoose.Schema({
     name: String,
     email: String,
-    rating: String,
+    rating: Number,
     review: String,
-})
+});
 
-
-module.exports = mongoose.model('review', reviewSchema);
+export const Review = mongoose.model('Review', reviewSchema);
