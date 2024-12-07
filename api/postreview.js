@@ -17,14 +17,14 @@ export default async function handler(req, res) {
             const rev = new Review({ name, email, rating, review });
             await rev.save();
 
-            // Serve the formsubmitted.html file
-            const filePath = path.resolve('public', 'formsubmitted.html');
-            return res.status(200).sendFile(filePath);
+            // Redirect to the confirmation page
+            return res.redirect(302, '/formsubmited.html');
         } catch (error) {
+            console.error("Error saving user data:", error);
             return res.status(500).json({ error: "Internal Server Error", details: error.message });
         }
+    } else {
+        // Handle unsupported HTTP methods
+        return res.status(405).json({ error: "Method Not Allowed" });
     }
-
-    // Handle unsupported HTTP methods
-    return res.status(405).json({ error: "Method Not Allowed" });
 }
