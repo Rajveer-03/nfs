@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const http = require('http');
 const port = 3020;
 
-app.use(express.static(__dirname))
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }))
 
 mongoose.connect(process.env.MONGODB_ATLAS_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,7 +25,7 @@ app.get('/cusreview', (req, res) => {
 });
 
 
-app.post('api/postappointment', async (req, res) => {
+app.post('/api/postappointment', async (req, res) => {
     const {name , email , phonenum , date, time , msg } = req.body
     const user = new User({
         name,
@@ -40,7 +40,7 @@ app.post('api/postappointment', async (req, res) => {
 })
 
 
-app.post('api/postreview', async (req, res) => {
+app.post('/api/postreview', async (req, res) => {
     const {name , email , rating, review} = req.body
     const rev = new Review({
         name,
