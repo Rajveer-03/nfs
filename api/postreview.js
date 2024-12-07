@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Review } from '../models/reviewModel.js';
+import Review from './models/reviewModel.js';
 
 mongoose.connect(process.env.MONGODB_ATLAS_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 

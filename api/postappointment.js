@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { User } from '../models/userModel.js';
+import User from './models/userModel.js'; 
 
 mongoose.connect(process.env.MONGODB_ATLAS_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
