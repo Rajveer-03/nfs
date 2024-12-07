@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-import fs from 'fs';
-import path from 'path';
 import User from './models/userModel.js';
 
 // Connect to MongoDB
@@ -18,19 +16,10 @@ export default async function handler(req, res) {
             const user = new User({ name, email, phonenum, date, time, msg });
             await user.save();
 
-            // Resolve the file path
-            const filePath = path.resolve('public', 'formsubmitted.html');
-
-            // Read and send the HTML file
-            fs.readFile(filePath, 'utf8', (err, data) => {
-                if (err) {
-                    console.error("File read error:", err);
-                    return res.status(500).json({ error: "Failed to load the confirmation page." });
-                }
-                res.setHeader('Content-Type', 'text/html');
-                res.status(200).send(data);
-            });
+            // Redirect to the confirmation page
+            return res.redirect(302, '/formsubmited.html');
         } catch (error) {
+            console.error("Error saving user data:", error);
             return res.status(500).json({ error: "Internal Server Error", details: error.message });
         }
     } else {
